@@ -8,13 +8,15 @@ on:
 jobs:
   unit_test:
     name: Run unit tests with Karma and Jasmine
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - name: Clean npm cache
+      run: npm cache clean --force
     - name: Install dependencies
-      run: npm install --prefix openvidu-call-front
+      run: cd openvidu-call-front && npm install
     - name: Unit Tests
-      run: npm run test --prefix openvidu-call-front
+      run: cd openvidu-call-front && npm run test
